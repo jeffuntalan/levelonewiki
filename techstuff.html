@@ -2,7 +2,7 @@
 title: Tech Stuff
 description: Some resources I've come across on my journey to the unexpected hobby of tinkering with servers.
 published: true
-date: 2021-05-29T08:34:26.944Z
+date: 2021-05-29T15:08:19.573Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-05-28T16:14:21.131Z
@@ -74,11 +74,11 @@ dateCreated: 2021-05-28T16:14:21.131Z
         <td><strong>For Oracle: </strong><a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle">Always Free Oracle Cloud Hosting Guide for Foundry</a></td>
       </tr>
       <tr>
-        <td><strong>For Digital Ocean:</strong> Setup the cheapest instance you can find (the $5 one) and use the Oracle tutorial starting at&nbsp;<strong> </strong><a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a>. Remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>root</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> since no additional network config is needed for Digital Ocean instances.</td>
+        <td><strong>For Digital Ocean:</strong> Setup the cheapest instance you can find (the $5 one) and use the Oracle tutorial starting at <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a>. Remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>root</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> since no additional network config is needed for Digital Ocean instances.</td>
       </tr>
       <tr>
         <td>
-          <p><strong>For Azure:</strong> While the FoundryVTT wiki covers Azure on <a href="https://foundryvtt.wiki/en/setup/hosting/self-hosting-on-azure">one of their tutorials</a>, I found it simpler to use the same approach with Digital Ocean and just start at<strong> </strong><a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a><strong> </strong>of the Oracle Tutorial. You should also remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>root</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> of the tutorial since a different approach is needed to open up the necessary ports for Azure.&nbsp;</p>
+          <p><strong>For Azure:</strong> While the FoundryVTT wiki covers Azure on <a href="https://foundryvtt.wiki/en/setup/hosting/self-hosting-on-azure">one of their tutorials</a>, I found it simpler to use the same approach with Digital Ocean and just start at &nbsp;<a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a><strong> </strong>of the Oracle Tutorial. You should also remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>azureuser</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> of the tutorial since a different approach is needed to open up the necessary ports for Azure.&nbsp;</p>
           <ul>
             <li>At any point during the setup, you can go to the <strong>Networking</strong> tab of your Virtual Machine in Azure, and add an inbound port rule allowing access to <strong>port 30000</strong>.</li>
           </ul>
