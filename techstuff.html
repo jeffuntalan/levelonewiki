@@ -2,7 +2,7 @@
 title: Tech Stuff
 description: Some resources I've come across on my journey to the unexpected hobby of tinkering with servers.
 published: true
-date: 2021-05-29T15:08:19.573Z
+date: 2021-05-31T02:47:03.550Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-05-28T16:14:21.131Z
@@ -36,7 +36,7 @@ dateCreated: 2021-05-28T16:14:21.131Z
       <tr>
         <td style="background-color:#cccfff;">
           <h3><a href="https://www.digitalocean.com/">Digital Ocean</a></h3>
-          <p>They don't provide anything for&nbsp;free, but they have the best reputation of the cloud providers I've tried. It is also highly recommended by the Foundry Community. You'll get <strong>1GB of RAM</strong> on the instance, and about <strong>25GB of storage</strong>. <strong>Outbound bandwidth is at 1TB per month</strong>. For each VM instance (or “droplet”) you create, that would cost around <mark class="pen-red">$5 per month</mark>. <strong>You will need a credit card to </strong><a href="https://www.digitalocean.com/"><strong>signup</strong></a><strong>.</strong></p>
+          <p>They don't provide anything for&nbsp;free, but they have the best reputation of the cloud providers I've tried. It is also highly recommended by the Foundry Community. You'll get <strong>1GB of RAM</strong> on the instance, and about <strong>25GB of storage</strong>. <strong>Outbound bandwidth is at 1TB per month</strong>. Each VM instance (or “droplet”) you create would cost around <mark class="pen-red"><strong><u>$5 per month</u></strong></mark>. <strong>You will need a credit card to </strong><a href="https://www.digitalocean.com/"><strong>signup</strong></a><strong>.&nbsp;</strong></p>
           <blockquote>
             <p>Digital Ocean partnered with <a href="https://education.github.com/">Github Education</a>, giving students $100 in credit. With that amount you can host a VM instance for a year without any cost. However, you'll still need to have a credit card during signup even if you do so with Github. Don't forget to register for <a href="https://education.github.com/">Github Education</a> using your school email to avail of a LOT of benefits (including domains) if you're a student.</p>
           </blockquote>
@@ -118,7 +118,7 @@ dateCreated: 2021-05-28T16:14:21.131Z
 <p>The caddyfile for my own foundry install goes something like this:</p>
 <pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
 
-# A CONFIG SECTION FOR YOUR HOSTNAME
+# A CONFIG SECTION FOR DND
 dnd.leveloneadventure.me {
     # PROXY ALL REQUEST TO PORT 30000
     reverse_proxy localhost:30000
@@ -130,12 +130,12 @@ dnd.leveloneadventure.me {
 <p>Let's say we have a program that uses the port <code>3000</code>(as in the case of Wiki.js) we simply need to alter the domain we will use to access the program and add the appropriate port to use. We can do this on another line of config:</p>
 <pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
 
-# A CONFIG SECTION FOR YOUR HOSTNAME
+# A CONFIG SECTION FOR DND
 dnd.leveloneadventure.me {
     # PROXY ALL REQUEST TO PORT 30000
     reverse_proxy localhost:30000
 }
-# A CONFIG SECTION FOR YOUR HOSTNAME
+# A CONFIG SECTION FOR NOTES
 notes.leveloneadventure.me {
     # PROXY ALL REQUEST TO PORT 3000
     reverse_proxy localhost:3000
