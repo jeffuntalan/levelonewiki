@@ -2,7 +2,7 @@
 title: Circumventing CGNAT Using Tunnels (Inlets)
 description: If you've ever wanted to host foundry, or a website using a local computer or a Raspberry Pi but port forwarding doesn't work because of a CGNAT, this is for you!
 published: true
-date: 2021-07-02T12:18:32.796Z
+date: 2021-07-02T12:25:04.437Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-07-02T09:52:14.572Z
@@ -12,6 +12,9 @@ dateCreated: 2021-07-02T09:52:14.572Z
 <figure class="table">
   <table>
     <tbody>
+      <tr>
+        <td>This tutorial uses <a href="https://github.com/inlets/inlets">Inlets</a>, an open-source tunneling program paired with <a href="https://caddyserver.com/">Caddy</a> which manages SSL certificates.</td>
+      </tr>
       <tr>
         <td><i>Other tunneling methods are available, and you should always stick to what works for you! However, if you have the time to tinker, and you have a spare debian-based server to use as a proxy server, read on! :)</i></td>
       </tr>
@@ -59,10 +62,10 @@ WantedBy=multi-user.target</code></pre>
 <p>Change <code>--port=8080</code> to your preferred port number and <code>--token=1111</code> to your preferred token number. The token will be needed by the client to connect securely. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
 <p>Now that the service has been added to systemctl, we need to reload systemctl to reflect the changes:</p>
 <pre><code class="language-plaintext">sudo systemctl daemon-reload</code></pre>
-<p>Now let's start the service:</p>
+<p>Now let's enable the service at boot and start it:</p>
 <pre><code class="language-plaintext">sudo systemctl enable YOURPREFERREDNAME
 sudo service YOURPREFERREDNAME start</code></pre>
-<p>for good measure, check if the service is running:</p>
+<p>For good measure, check if the service is running:</p>
 <pre><code class="language-plaintext">sudo service YOURPREFERREDNAME status</code></pre>
 <p><strong>Make sure it outputs that the service is active, and that it is listening to the port you've selected.</strong></p>
 <p>Now that Inlets has been configure for the server, let's configure Caddy. The easiest way to setup caddy is via the Caddyfile, so let's edit that.</p>
@@ -89,7 +92,7 @@ your.domain.com {
 <p>Now that Inlets is installed, let's create a service that starts inlets automagically:</p>
 <pre><code class="language-plaintext">sudo nano /etc/systemd/system/YOURPREFERREDSERVICE.service</code></pre>
 <p>Remember to change <code>YOURPREFERREDSERVICE</code> with a service name you want. This name will be used to start, stop, or restart the service.</p>
-<p>in the nano text editor, enter the following but modify the appropriate fields:</p>
+<p>In the nano text editor, enter the following but modify the appropriate fields:</p>
 <pre><code class="language-plaintext">[Unit]
 Description=Inlets Exit Server
 After=network.target network-online.target
@@ -106,14 +109,14 @@ ExecStart=/usr/local/bin/inlets client --url wss://your.domain.com --upstream ht
 WantedBy=multi-user.target</code></pre>
 <p>Okay. Now we need to take note of a few things before we save. <code>your.domain.com</code> must be replaced by the domain you've configured for the server. <code>PORT</code> must be replaced by the appropriate port your app/program is using. For Foundry, this is 30000. Finally, <code>1111</code> must be replaced by the token you've entered in the server. THEY MUST MATCH.&nbsp;</p>
 <p>Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
-<p>Okay now we need t once again reload the daemon:</p>
+<p>Okay now we need to once again reload the daemon:</p>
 <pre><code class="language-plaintext">sudo systemctl daemon-reload</code></pre>
-<p>And start the service:</p>
+<p>And now enable the service at boot and start it:</p>
 <pre><code class="language-plaintext">sudo systemctl enable YOURPREFERREDSERVICE
 sudo service YOURPREFERREDSERVICE start</code></pre>
-<p>for good measure let's check if it's running:</p>
+<p>For good measure let's check if it's running:</p>
 <pre><code class="language-plaintext">sudo service YOURPREFERREDSERVICE status</code></pre>
-<p>It should output that the service is active, and that it is “connecting to proxy”.</p>
+<p><strong>It should output that the service is active, and that it is “connecting to proxy”.</strong></p>
 <p>Now for the moment of truth, open up a browser and key in <code>your.domain.com</code> and check if your previously CGNAT-restricted app/program is being served publicly via your domain.&nbsp;</p>
 <h2>Final Notes</h2>
 <p>With proper configuration, Inlets and Caddy can serve and web app, Node.js application, or even games! Other services may offer an easier way of circumventing CGNAT, such as ngrok, but those services have no option of setting a custom domain along with your public link. If you have any other questions or if you spot a mistake in the commands, don't hesitate to message me! I'll update the docs accordingly :)</p>
