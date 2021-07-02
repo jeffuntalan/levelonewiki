@@ -2,7 +2,7 @@
 title: Circumventing CGNAT Using Tunnels (Inlets)
 description: If you've ever wanted to host foundry, or a website using a local computer or a Raspberry Pi but port forwarding doesn't work because of a CGNAT, this is for you!
 published: true
-date: 2021-07-02T12:09:18.689Z
+date: 2021-07-02T12:18:32.796Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-07-02T09:52:14.572Z
@@ -21,7 +21,7 @@ dateCreated: 2021-07-02T09:52:14.572Z
 <h2>Pre-requisites</h2>
 <ol>
   <li><strong><u>A Remote Server</u>&nbsp;</strong><br><i>The remote server must have a non-restricted internet connection with no CGNAT. It must also have a Public IP ADRESS (ipv4). You can use VMs from Digital Ocean, Oracle Cloud, Azure, or any cloud provider you prefer.&nbsp;</i></li>
-  <li><strong><u>A Domain Name with an A RECORD pointed to the server's IP</u></strong><br>A custom domain name is required for this tutorial. The domain/subdomain that we'll be using will be used by the proxy server to point to your local machine.</li>
+  <li><strong><u>A Domain Name with an A RECORD pointed to the server's IP</u></strong><br><i>A custom domain name is required for this tutorial. The domain/subdomain that we'll be using will be used by the proxy server to point to your local machine.</i></li>
 </ol>
 <h2>Setting Up the Server</h2>
 <p>Setting up the server is divided into two parts: installing the binaries for the required packages, and configuring the packages.</p>
@@ -30,7 +30,7 @@ dateCreated: 2021-07-02T09:52:14.572Z
 <pre><code class="language-plaintext">sudo apt update &amp;&amp; sudo apt upgrade -y</code></pre>
 <p>That takes care of that. Once the server finishes updating, let's install the Inlets packages onto the server:</p>
 <pre><code class="language-plaintext">curl -sLS https://get.inlets.dev | sudo sh</code></pre>
-<p>Once inlets is installed, we need one more thing. Caddy is a open source web server that automagically handles SSL for us, thus our website will be served over HTTPS without any additional hassle of paying or setting up SSL. Let's install Caddy:</p>
+<p>Once inlets is installed, we need one more thing. Caddy is a open source web server that automagically handles SSL for us, thus our website will be served over HTTPS without any additional hassle of paying or setting up certificates. Let's install Caddy:</p>
 <pre><code class="language-plaintext">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
@@ -56,7 +56,7 @@ ExecStart=/usr/local/bin/inlets server --port=8080 --token=1111
 
 [Install]
 WantedBy=multi-user.target</code></pre>
-<p>Change <code>--port=8080</code> to your preferred port number and <code>--token-1111</code> to your preferred token number. The token will be needed by the client to connect securely. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
+<p>Change <code>--port=8080</code> to your preferred port number and <code>--token=1111</code> to your preferred token number. The token will be needed by the client to connect securely. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
 <p>Now that the service has been added to systemctl, we need to reload systemctl to reflect the changes:</p>
 <pre><code class="language-plaintext">sudo systemctl daemon-reload</code></pre>
 <p>Now let's start the service:</p>
@@ -64,10 +64,10 @@ WantedBy=multi-user.target</code></pre>
 sudo service YOURPREFERREDNAME start</code></pre>
 <p>for good measure, check if the service is running:</p>
 <pre><code class="language-plaintext">sudo service YOURPREFERREDNAME status</code></pre>
-<p>it should output that the service is active, and that it is listening to the port you've selected.</p>
+<p><strong>Make sure it outputs that the service is active, and that it is listening to the port you've selected.</strong></p>
 <p>Now that Inlets has been configure for the server, let's configure Caddy. The easiest way to setup caddy is via the Caddyfile, so let's edit that.</p>
 <pre><code class="language-plaintext">sudo nano /etc/caddy/Caddyfile</code></pre>
-<p>inside the Caddyfile, delete everything and replace it with:</p>
+<p>Inside the Caddyfile, delete everything and replace it with:</p>
 <pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
 
 # A CONFIG SECTION FOR YOUR main
@@ -77,7 +77,7 @@ your.domain.com {
 }
 # Refer to the Caddy docs for more information:
 # https://caddyserver.com/docs/caddyfile</code></pre>
-<p>Make sure that you change <code>your.domain.com</code> with you actual domain/subdomain. Also make sure that it points to the IP of the remote server. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.&nbsp;</p>
+<p>Make sure that you change <code>your.domain.com</code> with you actual domain/subdomain. Also make sure that it points to the IP of the remote server. Remember to check the port in <code>localhost:8080</code> to see if it matches the ported youve assigned previously. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.&nbsp;</p>
 <p>After the Caddyfile has been saved, restart Caddy.</p>
 <pre><code class="language-plaintext">sudo service caddy restart</code></pre>
 <p>&nbsp;</p>
