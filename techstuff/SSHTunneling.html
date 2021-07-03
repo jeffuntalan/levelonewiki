@@ -1,0 +1,64 @@
+<!--
+title: SSH Tunneling 
+description: Useful if you want to have a Public IP even if you are behind a CGNAT-restricted network.
+published: true
+date: 2021-07-03T05:06:36.217Z
+tags: 
+editor: ckeditor
+dateCreated: 2021-07-03T05:06:36.217Z
+-->
+
+<p><a href="https://notes.leveloneadventure.me/techstuff"><strong>⇤Tech Stuff</strong></a></p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><i>SSH Tunneling is useful if you want a semi-permanent Public IP address for use in games. A remote server's Public IP will be assigned to you as well as a port.</i></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h2>Pre-requisite</h2>
+<ol>
+  <li><strong>A Remote Server&nbsp;</strong><br><i>The remote server must have a non-restricted internet connection with no CGNAT. It must also have a Public IP ADRESS (ipv4). You can use VMs from Digital Ocean, Oracle Cloud, Azure, or any cloud provider you prefer.&nbsp;</i></li>
+</ol>
+<p>That's all you need! :)</p>
+<h2>Setting up the Server</h2>
+<p>Login to your remote server's terminal and configure the ssh parameters for the server:</p>
+<pre><code class="language-plaintext">nano /etc/ssh/sshd_config</code></pre>
+<p>This will output the server's config file. Make edits to the config file by adding/editing (if present) the following lines:</p>
+<pre><code class="language-plaintext">AllowTcpForwarding yes
+GatewayPorts yes</code></pre>
+<p>Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
+<p>Once all that's done, restart the server:</p>
+<pre><code class="language-plaintext">sudo reboot</code></pre>
+<p>And we're done with the server!</p>
+<h2>Setting up Clients</h2>
+<p>Now we need to setup the computer which will connect to the remote server and use the remote server's IP address. The first thing we must determine is the ssh login method. If you use a simple username and password for your server, you don't need to do much else. However, if you use ssh keys, additional setup may be required.&nbsp;</p>
+<p><strong>If you don't use ssh keys to login to your server, SKIP THIS STEP. </strong>Let's copy the remote server's ssh key onto the client and add it to their keylist:</p>
+<pre><code class="language-plaintext"># change id_rsa and id_rsa.pub with you key names
+cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+# change permissions on file
+sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 600 ~/.ssh/id_rsa.pub
+# start the ssh-agent in the background
+eval $(ssh-agent -s)
+# make ssh agent to actually use copied key
+ssh-add ~/.ssh/id_rsa</code></pre>
+<h3>Installing TMUX</h3>
+<p>TMUX is a multiplexer that allows us to start a terminal session and leave it open for presistent use. We can install it by:</p>
+<pre><code class="language-plaintext">sudo apt install tmux</code></pre>
+<p>Now that TMUX is installed, we can now start the tunneling! Let's enter TMUX first:</p>
+<pre><code class="language-plaintext">tmux</code></pre>
+<p>This starts a TMUX session that we can detach later on. To start tunneling, enter the following command, but take note of any changes you need to make:</p>
+<pre><code class="language-plaintext">ssh -o ServerAliveInterval=60 -R REMOTEPORT:localhost:LOCALPORT USER@REMOTE.SERVER.IP.ADDRESS</code></pre>
+<ol>
+  <li><code>REMOTEPORT</code> refers to the port you want to expose to the internet. This will be the port your friends will connect to.</li>
+  <li><code>LOCALPORT</code> refers to the port that your program/game is running on locally.</li>
+  <li><code>USER</code> refers to the username you use to connect to the remote server.</li>
+  <li><code>REMOTE.SERVER.IP.ADDRESS</code> speaks for itself. Don't enter the wrong one.</li>
+</ol>
+<p>That's it! You've now established a connection to a remote server using ssh! Now people who connect to &nbsp;<code>REMOTE.SERVER.IP.ADDRES:REMOTEPORT</code>can access the game you've set up (like Terraria).</p>
+<p>To exit TMUX press <code>CTRL+B</code> then press <code>D</code>. This will detach the TMUX terminal and leave your hands free. To reattach, simply key in: <code>tmux attach</code> onto the terminal.</p>
+<p>We're good! Hope it helps!</p>
