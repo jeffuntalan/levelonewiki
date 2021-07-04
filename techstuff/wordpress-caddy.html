@@ -2,7 +2,7 @@
 title: Installing Wordpress with Caddy
 description: If you've ever wanted to install a generic CMS with a web server that automatically fetches SSL certificates for you, this is for you!
 published: true
-date: 2021-07-04T02:20:24.648Z
+date: 2021-07-04T06:14:02.075Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-07-04T02:20:24.648Z
@@ -13,7 +13,7 @@ dateCreated: 2021-07-04T02:20:24.648Z
   <table>
     <tbody>
       <tr>
-        <td><i>This tutorial uses Caddy, php7.4, MariaDB, and Wordpress in order to create a simple-to-use WYSIWYG website builder on a personal server. This is used with the latest versions of each program at the time of writing and will be updated as often as I can. If you ever spot something that doesn't work, please get in touch so we can update it! :)</i></td>
+        <td><i>This tutorial uses Caddy, php, MariaDB, and Wordpress in order to create a simple-to-use WYSIWYG website builder on a personal server. This is used with the latest versions of each program at the time of writing and will be updated as often as I can. If you ever spot something that doesn't work, please get in touch so we can update it! :)</i></td>
       </tr>
     </tbody>
   </table>
@@ -40,22 +40,27 @@ sudo apt install caddy</code></pre>
 </ul>
 <pre><code class="language-plaintext">cd /var/www/html/
 sudo rm *</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>Next we'll download the latest version of Wordpress:</li>
 </ul>
 <pre><code class="language-plaintext">sudo wget http://wordpress.org/latest.tar.gz</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>Unpack the Wordpress tarball:</li>
 </ul>
 <pre><code class="language-plaintext">sudo tar xzf latest.tar.gz</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>The tarball will unpack the wordpress files in a <code>wordpress</code> directory. We must move the files to the root of our chosen directory:</li>
 </ul>
 <pre><code class="language-plaintext">sudo mv wordpress/* .</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>Let's clean up the empty <code>wordpress</code> directory and remove the wordpress tarball:</li>
 </ul>
 <pre><code class="language-plaintext">sudo rm -rf wordpress latest.tar.gz</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>And finally, let's change ownership of these files:</li>
 </ul>
@@ -80,6 +85,7 @@ sudo rm *</code></pre>
   <li>Run <code>mysql</code> in the terminal window:</li>
 </ul>
 <pre><code class="language-plaintext">sudo mysql -uroot -p</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>Enter the root password you created.</li>
 </ul>
@@ -91,11 +97,13 @@ sudo rm *</code></pre>
 <p>Note the semi-colon ending the statement.</p>
 <p>If this has been successful, you should see this:</p>
 <pre><code class="language-plaintext">Query OK, 1 row affected (0.00 sec)</code></pre>
+<p>&nbsp;</p>
 <figure class="image"><img src="https://projects-static.raspberrypi.org/projects/lamp-web-server-with-wordpress/8b2925d8260c8fd772c5d74ea075083abe219048/en/images/create-database.png" alt="create database"></figure>
 <ul>
   <li>Now grant database privileges to the root user. <strong>Note:</strong> you will need to <strong>enter your own password after</strong> <code>IDENTIFIED BY</code>. <strong>REMEMBER THIS PASSWORD</strong>.</li>
 </ul>
 <pre><code class="language-plaintext">GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost' IDENTIFIED BY 'YOURPASSWORD';</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>For the changes to take effect, you will need to flush the database privileges:</li>
 </ul>
@@ -109,6 +117,7 @@ sudo rm *</code></pre>
   <li>Configuring caddy is pretty straightforward since it uses a single file (a ‘Caddyfile’ )to store its configurations. We must first open up the Caddyfile:</li>
 </ul>
 <pre><code class="language-plaintext">sudo nano /etc/caddy/Caddyfile</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>Assuming this is a fresh install and no other important configs are there, delete everything and add this to the Caddyfile:</li>
 </ul>
@@ -124,6 +133,7 @@ sudo rm *</code></pre>
   <li>Now we just need to restart caddy for the configs to take effect.</li>
 </ul>
 <pre><code class="language-plaintext">sudo service caddy restart</code></pre>
+<p>&nbsp;</p>
 <ul>
   <li>At this point, might as well reboot the server for good measure.</li>
 </ul>
