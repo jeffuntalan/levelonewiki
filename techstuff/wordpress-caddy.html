@@ -2,7 +2,7 @@
 title: Installing Wordpress with Caddy
 description: If you've ever wanted to install a generic CMS with a web server that automatically fetches SSL certificates for you, this is for you!
 published: true
-date: 2021-07-04T06:14:32.115Z
+date: 2021-07-04T06:16:01.991Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-07-04T02:20:24.648Z
@@ -23,7 +23,7 @@ dateCreated: 2021-07-04T02:20:24.648Z
   <li><strong><u>A Remote Server</u></strong><br><i>The remote server must have a non-restricted internet connection with no CGNAT. It must also have a Public IP ADRESS (ipv4). You can use VMs from Digital Ocean, Oracle Cloud, Azure, or any cloud provider you prefer.&nbsp;</i></li>
   <li><strong><u>A Domain Name with an A RECORD pointed to the server's IP</u></strong><br><i>A custom domain name is required for this tutorial. The domain/subdomain that we'll be using will be used by the proxy server to point to your local machine.</i></li>
 </ol>
-<h2>Installing the pre-requisites</h2>
+<h2>Installing core requirements</h2>
 <p>1. Caddy. Caddy is a simple file server that automatically fetches SSL certificates so you don't have to run circles buying or getting your own. Let's install it:</p>
 <pre><code class="language-plaintext">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
