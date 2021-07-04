@@ -1,0 +1,55 @@
+<!--
+title: Hosting
+description: If you want an idea on which cloud hosting provider to try, these are the ones that I've tried.
+published: true
+date: 2021-07-04T05:25:32.955Z
+tags: tech
+editor: ckeditor
+dateCreated: 2021-07-04T05:25:32.955Z
+-->
+
+<p><a href="https://notes.leveloneadventure.me/techstuff"><strong>⇤Tech Stuff</strong></a></p>
+<h2><strong>Servers</strong></h2>
+<p>A server is essentially a computer that serves information remotely to end-users like you (clients). In my setup, I use Virtual Machines (VMs) on remote servers to host FoundryVTT games and this wiki.&nbsp;</p>
+<h2>Where do I get one?</h2>
+<p>The simplest way to have your own server is to allocate a device for use as one. A good candidate for this is an old laptop installed with a server OS like Ubuntu 20.04, or a Raspberry Pi running Raspbian. There are also lots of hosting providers out there that can provide you a good starting point to host your own stuff. Here I'll focus on the ones I've used: <strong>Oracle Cloud</strong>, <strong>Digital Ocean</strong>, and <strong>Azure:</strong></p>
+<p>&nbsp;</p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);">
+    <tbody>
+      <tr>
+        <td style="background-color:rgb(255, 208, 204);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;">
+          <h3><a href="https://www.oracle.com/cloud/free/">Oracle Cloud</a></h3>
+          <p>Despite its unpopularity due to its lawsuit against Google and a bunch of other stuff, Oracle Cloud has one of the best “free tiers” on this list. When you sign up for Oracle Cloud Infrastructure, you'll get <strong>two Virtual Machines with 1GB RAM each</strong> (one of these is enough to run an instance of Foundry or any lightweight program). They've recently added the ability to create up to 4 ARM-based VMs on the free tier with a combined total of 24GB of RAM. <strong>Available storage</strong> for these instances have a combined total of <strong>200 GB</strong>, the <i>biggest</i> of any free tier cloud providers, and they allow an <strong>outbound bandwidth of 10TB per month</strong>. More than enough even if you do daily D&amp;D sessions. It's also <u>free for life</u> (or at least until they change their minds). <strong>You will need a credit card to </strong><a href="https://www.oracle.com/cloud/free/"><strong>signup</strong></a><strong>.</strong></p>
+          <p>&nbsp;</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(204, 207, 255);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;">
+          <h3><a href="https://www.digitalocean.com/">Digital Ocean</a></h3>
+          <p>They don't provide anything for&nbsp;free, but they have the best reputation of the cloud providers I've tried. It is also highly recommended by the Foundry Community. You'll get <strong>1GB of RAM</strong> on the instance, and about <strong>25GB of storage</strong>. <strong>Outbound bandwidth is at 1TB per month</strong>. Each VM instance (or “droplet”) you create would cost around <mark class="pen-red"><strong><u>$5 per month</u></strong></mark>. <strong>You will need a credit card to </strong><a href="https://www.digitalocean.com/"><strong>signup</strong></a><strong>.&nbsp;</strong></p>
+          <blockquote>
+            <p>Digital Ocean partnered with <a href="https://education.github.com/">Github Education</a>, giving students $100 in credit. With that amount you can host a VM instance for a year without any cost. However, you'll still need to have a credit card during signup even if you do so with Github. Don't forget to register for <a href="https://education.github.com/">Github Education</a> using your school email to avail of a LOT of benefits (including domains) if you're a student.</p>
+          </blockquote>
+          <p>&nbsp;</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color:rgb(190, 181, 255);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;">
+          <h3><a href="https://azure.microsoft.com/en-us/free/">Azure</a></h3>
+          <p>Microsoft runs this. You essentially get 1 Linux based VM and 1 Windows VM for their free tier (which lasts for only 1 year). It's <strong>1GB of RAM</strong>, has a maximum of <strong>64GB of storage</strong>, and a measly outbound bandwidth of <strong>15GB per month</strong>. You can avail of these for 1 year, as long as you <strong>signup with a credit card or debit card.</strong></p>
+          <blockquote>
+            <p>Azure is also partnered with <a href="https://education.github.com/">Github Education</a>, giving you the ability to avail of their <strong>free-tier services for 1 year</strong>, along with <strong>$100 in credit</strong>. <strong>No credit card needed if you signup with your school email through </strong><a href="https://education.github.com/"><strong>Github Education</strong></a>.</p>
+          </blockquote>
+          <p>&nbsp;</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<h3>So which one?</h3>
+<p>I'm on Oracle because it's free, giving me the freedom of not charging my players anything besides a few hours of their lives to play D&amp;D. However, I keep mirror backups of my active Foundry installations and data folders both on my personal computer, and on a separate Digital Ocean instance. I also use Azure, but not for Foundry. I use Azure just as a dedicated server for Don't Starve Together.</p>
+<h2>Operating System</h2>
+<p>The OS I use on my VMs is <strong>Ubuntu 20.04</strong>. As such, the tutorials here will be done with Ubuntu.&nbsp;</p>
+<p>Any Linux OS will be offered for free on any of the hosting providers mentioned above. I don't use Windows server OS because it can incur licensing fees which may charge your card if you're not careful.&nbsp;</p>
