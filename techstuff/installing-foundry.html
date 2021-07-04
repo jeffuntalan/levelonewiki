@@ -1,0 +1,75 @@
+<!--
+title: Installing FoundryVTT on a server
+description: A culmination of the guides that I've tried, and what worked for me.
+published: true
+date: 2021-07-04T05:29:03.576Z
+tags: foundry, tech
+editor: ckeditor
+dateCreated: 2021-07-04T05:29:03.576Z
+-->
+
+<p><a href="https://notes.leveloneadventure.me/techstuff"><strong>⇤Tech Stuff</strong></a></p>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);">
+    <tbody>
+      <tr>
+        <td style="background-color:rgb(255, 255, 255);border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><i>This is by no means, a universal solution and will cover only the services I use. You will be able to find other solutions in places like the FoundryVTT wiki, and the vast internet. If you have questions about the methods here you can send me an email or message on Discord and I'll be glad to help!</i></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h2>Installing FoundryVTT on a VM</h2>
+<p>After you've chosen which hosting providers works best for you, you can go ahead and checkout these tutorials!</p>
+<blockquote>
+  <p>You will need a basic understanding of changing directories depending on the user account you're using if you opted to use Digital Ocean or Azure to proceed.</p>
+</blockquote>
+<figure class="table">
+  <table style="background-color:rgb(255, 255, 255);">
+    <tbody>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><strong>For Oracle: </strong><a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle">Always Free Oracle Cloud Hosting Guide for Foundry</a></td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;"><strong>For Digital Ocean:</strong> Setup the cheapest instance you can find (the $5 one) and use the Oracle tutorial starting at <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a>. Remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>root</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> since no additional network config is needed for Digital Ocean instances.</td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;">
+          <p><strong>For Azure:</strong> While the FoundryVTT wiki covers Azure on <a href="https://foundryvtt.wiki/en/setup/hosting/self-hosting-on-azure">one of their tutorials</a>, I found it simpler to use the same approach with Digital Ocean and just start at &nbsp;<a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a>of the Oracle Tutorial. You should also remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>azureuser</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> of the tutorial since a different approach is needed to open up the necessary ports for Azure.&nbsp;</p>
+          <ul>
+            <li>At any point during the setup, you can go to the <strong>Networking</strong> tab of your Virtual Machine in Azure, and add an inbound port rule allowing access to <strong>port 30000</strong>.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-bottom:1px solid rgb(207, 216, 220);border-left:1px solid rgb(207, 216, 220);border-right:1px solid rgb(207, 216, 220);border-top:1px solid rgb(207, 216, 220);padding:0.5rem 0.75rem;">
+          <p><strong>For any Linux: </strong><a href="https://foundryvtt.wiki/en/setup/linux-installation">General Linux Installation and Usage Guide&nbsp;</a></p>
+          <ul>
+            <li>This provides a generalized walkthrough of the method used in the the Oracle Tutorial. It contains a lot of other notes which may be irrelevant to your installation as accomodations for other linux distros have been added. However, this provides the most comprehensive guide in setting up a linux VM for use with Foundry.</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<h3>Renaming the user directories during install</h3>
+<p>Whenever a command for foundry references the user directory (the directory after <code>/home/</code> in the example below, the user is <code>ubuntu</code>) you should make the appropriate changes to the syntax.</p>
+<pre><code class="language-plaintext">node /home/ubuntu/foundry/resources/app/main.js --dataPath=/home/ubuntu/foundryuserdata</code></pre>
+<p>Copy</p>
+<p>The above example is the command used to run the FoundryVTT server using node in the Oracle tutorial. The example is useful for installations where the default user is name <code>ubuntu</code> like in Oracle Cloud. However, what if I use Digital ocean or Azure? Well, you'll need to know the user account you're using (the <strong>default for Digital Ocean is </strong><code><strong>root</strong></code> while the <strong>default for Azure is </strong><code><strong>azureuser</strong></code>) and make the necessary modifications.</p>
+<ul>
+  <li><strong>Let's say I use Azure:</strong></li>
+</ul>
+<pre><code class="language-plaintext">node /home/azureuser/foundry/resources/app/main.js --dataPath=/home/azureuser/foundryuserdata</code></pre>
+<p>Copy</p>
+<p>That would properly run the foundry instance if you've followed along the Oracle tutorial on Azure.&nbsp;</p>
+<ul>
+  <li><strong>I tried this on Digital Ocean but it didn't work. What's up?</strong></li>
+</ul>
+<p>This is the syntax for VMs configured with root accounts.</p>
+<pre><code class="language-plaintext">node /root/foundry/resources/app/main.js --dataPath=/root/foundryuserdata</code></pre>
+<p>Copy</p>
+<p>You'll notice that the <code>/home/</code> directory is not included. This is because the root account is the foundation of user access in linux. In normal use cases, it is not recommended to use root user accounts as primaries since they introduce a slew of access privileges and alongside it, vulnerabilities. For the purpose of simplicity and in <i>assumption that you're not going to use Foundry in the largescale, but only with friends</i>, this should be good.</p>
+<blockquote>
+  <p>Remember that this is not the only event that you'll encounter this. <strong>Always scan your syntax</strong> for any misconfigured directories. It is very easy to just copy and paste the necessary commands in Ubuntu, but it is still not fool-proof, especially if you're adapting proven methods onto other environment like we do here.&nbsp;</p>
+</blockquote>
