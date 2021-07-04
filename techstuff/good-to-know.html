@@ -1,0 +1,62 @@
+<!--
+title: Good to know!
+description: Here are some useful stuff which may come in handy... someday!
+published: true
+date: 2021-07-04T05:43:24.373Z
+tags: tech
+editor: ckeditor
+dateCreated: 2021-07-04T05:43:24.373Z
+-->
+
+<p><a href="/techstuff"><strong>⇤Tech Stuff</strong></a></p>
+<h2>Bonus: Configuring Caddy with multiple programs</h2>
+<p>The caddyfile for my own foundry install goes something like this:</p>
+<pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
+
+# A CONFIG SECTION FOR DND
+dnd.leveloneadventure.me {
+    # PROXY ALL REQUEST TO PORT 30000
+    reverse_proxy localhost:30000
+}
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile</code></pre>
+<p>Copy</p>
+<p>You'll notice that my domain <code>dnd.leveloneadventure.me</code>is in the proper section and that the port is set to the Foundry default of <code>30000</code>. But what if I want to reverse proxy another program using Caddy <strong>on the same VM?</strong> Good news! The config is easy enough.</p>
+<p>Let's say we have a program that uses the port <code>3000</code>(as in the case of Wiki.js) we simply need to alter the domain we will use to access the program and add the appropriate port to use. We can do this on another line of config:</p>
+<pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
+
+# A CONFIG SECTION FOR DND
+dnd.leveloneadventure.me {
+    # PROXY ALL REQUEST TO PORT 30000
+    reverse_proxy localhost:30000
+}
+# A CONFIG SECTION FOR NOTES
+notes.leveloneadventure.me {
+    # PROXY ALL REQUEST TO PORT 3000
+    reverse_proxy localhost:3000
+}
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile</code></pre>
+<p>Copy</p>
+<p>Now we have the ports <code>30000</code> and <code>3000</code>being reverse-proxied to <code>dnd.leveloneadventure.me</code> and <code>notes.leveloneadventure.me</code> respectively!</p>
+<p>Remember to restart Caddy to apply the changes:</p>
+<pre><code class="language-plaintext">sudo service caddy restart</code></pre>
+<p>Copy</p>
+<p>&nbsp;</p>
+<blockquote>
+  <p>You will need to add an “A RECORD" on you domain provider's DNS settings that points to your VM's public IP address for this to work. Make sure you set the subdomains to match the ones you've configured on your caddyfile.</p>
+</blockquote>
+<h2>Bonus: Adding Existing SSH keys</h2>
+<p>&nbsp;</p>
+<pre><code class="language-plaintext">cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
+cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
+# change permissions on file
+sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 600 ~/.ssh/id_rsa.pub
+# start the ssh-agent in the background
+eval $(ssh-agent -s)
+# make ssh agent to actually use copied key
+ssh-add ~/.ssh/id_rsa</code></pre>
+<p>&nbsp;</p>
