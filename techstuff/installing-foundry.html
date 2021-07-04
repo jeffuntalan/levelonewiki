@@ -2,7 +2,7 @@
 title: Installing FoundryVTT on a server
 description: A culmination of the guides that I've tried, and what worked for me.
 published: true
-date: 2021-07-04T05:29:03.576Z
+date: 2021-07-04T05:45:10.722Z
 tags: foundry, tech
 editor: ckeditor
 dateCreated: 2021-07-04T05:29:03.576Z
@@ -55,20 +55,17 @@ dateCreated: 2021-07-04T05:29:03.576Z
 <h3>Renaming the user directories during install</h3>
 <p>Whenever a command for foundry references the user directory (the directory after <code>/home/</code> in the example below, the user is <code>ubuntu</code>) you should make the appropriate changes to the syntax.</p>
 <pre><code class="language-plaintext">node /home/ubuntu/foundry/resources/app/main.js --dataPath=/home/ubuntu/foundryuserdata</code></pre>
-<p>Copy</p>
 <p>The above example is the command used to run the FoundryVTT server using node in the Oracle tutorial. The example is useful for installations where the default user is name <code>ubuntu</code> like in Oracle Cloud. However, what if I use Digital ocean or Azure? Well, you'll need to know the user account you're using (the <strong>default for Digital Ocean is </strong><code><strong>root</strong></code> while the <strong>default for Azure is </strong><code><strong>azureuser</strong></code>) and make the necessary modifications.</p>
 <ul>
   <li><strong>Let's say I use Azure:</strong></li>
 </ul>
 <pre><code class="language-plaintext">node /home/azureuser/foundry/resources/app/main.js --dataPath=/home/azureuser/foundryuserdata</code></pre>
-<p>Copy</p>
 <p>That would properly run the foundry instance if you've followed along the Oracle tutorial on Azure.&nbsp;</p>
 <ul>
   <li><strong>I tried this on Digital Ocean but it didn't work. What's up?</strong></li>
 </ul>
 <p>This is the syntax for VMs configured with root accounts.</p>
 <pre><code class="language-plaintext">node /root/foundry/resources/app/main.js --dataPath=/root/foundryuserdata</code></pre>
-<p>Copy</p>
 <p>You'll notice that the <code>/home/</code> directory is not included. This is because the root account is the foundation of user access in linux. In normal use cases, it is not recommended to use root user accounts as primaries since they introduce a slew of access privileges and alongside it, vulnerabilities. For the purpose of simplicity and in <i>assumption that you're not going to use Foundry in the largescale, but only with friends</i>, this should be good.</p>
 <blockquote>
   <p>Remember that this is not the only event that you'll encounter this. <strong>Always scan your syntax</strong> for any misconfigured directories. It is very easy to just copy and paste the necessary commands in Ubuntu, but it is still not fool-proof, especially if you're adapting proven methods onto other environment like we do here.&nbsp;</p>
