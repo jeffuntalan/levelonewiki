@@ -1,0 +1,152 @@
+<!--
+title: Installing Wordpress with Caddy
+description: If you've ever wanted to install a generic CMS with a web server that automatically fetches SSL certificates for you, this is for you!
+published: true
+date: 2021-07-04T02:20:24.648Z
+tags: tech
+editor: ckeditor
+dateCreated: 2021-07-04T02:20:24.648Z
+-->
+
+<p><a href="https://notes.leveloneadventure.me/techstuff"><strong>⇤Tech Stuff</strong></a></p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td><i>This tutorial uses Caddy, php7.4, MariaDB, and Wordpress in order to create a simple-to-use WYSIWYG website builder on a personal server. This is used with the latest versions of each program at the time of writing and will be updated as often as I can. If you ever spot something that doesn't work, please get in touch so we can update it! :)</i></td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h2>Pre-requisites</h2>
+<ol>
+  <li><strong><u>A Remote Server</u></strong><br><i>The remote server must have a non-restricted internet connection with no CGNAT. It must also have a Public IP ADRESS (ipv4). You can use VMs from Digital Ocean, Oracle Cloud, Azure, or any cloud provider you prefer.&nbsp;</i></li>
+  <li><strong><u>A Domain Name with an A RECORD pointed to the server's IP</u></strong><br><i>A custom domain name is required for this tutorial. The domain/subdomain that we'll be using will be used by the proxy server to point to your local machine.</i></li>
+</ol>
+<h2>Installing the pre-requisites</h2>
+<p>1. Caddy. Caddy is a simple file server that automatically fetches SSL certificates so you don't have to run circles buying or getting your own. Let's install it:</p>
+<pre><code class="language-plaintext">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install caddy</code></pre>
+<p>2. MariaDB. This database is created by the original creators of MySQL, and is open-source. Install it with:</p>
+<pre><code class="language-plaintext">sudo apt-get install mariadb-server php-mysql -y</code></pre>
+<p>3. PHP. This is a general scripting language that allows for the creation of dynamic websites. The CMS we'll be using requires php and will not function without it. Let's install it:</p>
+<pre><code class="language-plaintext">sudo apt install php-cli php-fpm php-mysql</code></pre>
+<p>4. Wordpress. Our CMS is the most common website builder which powers roughly 42% of the world's websites. With ubiquity comes vulnerability, so we must observe proper security protocols when using this. Still, it is one of the most feature-rich site builders out there. And it's free.&nbsp;</p>
+<ul>
+  <li>To install it, we must first navigate to the appropriate directory where our files will be served and clear up any files there. For this tutorial, I'll use the default html directory:</li>
+</ul>
+<pre><code class="language-plaintext">cd /var/www/html/
+sudo rm *</code></pre>
+<ul>
+  <li>Next we'll download the latest version of Wordpress:</li>
+</ul>
+<pre><code class="language-plaintext">sudo wget http://wordpress.org/latest.tar.gz</code></pre>
+<ul>
+  <li>Unpack the Wordpress tarball:</li>
+</ul>
+<pre><code class="language-plaintext">sudo tar xzf latest.tar.gz</code></pre>
+<ul>
+  <li>The tarball will unpack the wordpress files in a <code>wordpress</code> directory. We must move the files to the root of our chosen directory:</li>
+</ul>
+<pre><code class="language-plaintext">sudo mv wordpress/* .</code></pre>
+<ul>
+  <li>Let's clean up the empty <code>wordpress</code> directory and remove the wordpress tarball:</li>
+</ul>
+<pre><code class="language-plaintext">sudo rm -rf wordpress latest.tar.gz</code></pre>
+<ul>
+  <li>And finally, let's change ownership of these files:</li>
+</ul>
+<pre><code class="language-plaintext">sudo chown -R www-data: .</code></pre>
+<p>Now we have everything installed! If you're still at the current directory, typing <code>ls</code> will output the wordpress files.</p>
+<h2>Configuring MariaDB</h2>
+<p>Now we need to configure our database for use with wordpress. The steps that follow assumes that this is a fresh install of MariaDB.</p>
+<ul>
+  <li>Run the MySQL secure installation command in the terminal window.</li>
+</ul>
+<pre><code class="language-plaintext">sudo mysql_secure_installation</code></pre>
+<p>You will be asked <code>Enter current password for root (enter for none):</code> — press <strong>Enter</strong>.</p>
+<p>Type in <strong>Y</strong> and press <strong>Enter</strong> to <code>Set root password?</code>.</p>
+<p>Type in a password at the <code>New password:</code> prompt, and press <strong>Enter</strong>. <strong>Important:</strong> remember this root password, as you will need it later to set up WordPress.</p>
+<p>Type in <strong>Y</strong> to <code>Remove anonymous users</code>.</p>
+<p>Type in <strong>Y</strong> to <code>Disallow root login remotely</code>.</p>
+<p>Type in <strong>Y</strong> to <code>Remove test database and access to it</code>.</p>
+<p>Type in <strong>Y</strong> to <code>Reload privilege tables now</code>.</p>
+<p>When complete, you will see the message <code>All done!</code> and <code>Thanks for using MariaDB!</code>.</p>
+<h4>Create the WordPress database</h4>
+<ul>
+  <li>Run <code>mysql</code> in the terminal window:</li>
+</ul>
+<pre><code class="language-plaintext">sudo mysql -uroot -p</code></pre>
+<ul>
+  <li>Enter the root password you created.</li>
+</ul>
+<p>You will be greeted by the message <code>Welcome to the MariaDB monitor</code>.</p>
+<ul>
+  <li>Create the database for your WordPress installation at the <code>MariaDB [(none)]&gt;</code> prompt using:</li>
+</ul>
+<pre><code class="language-plaintext">create database wordpress;</code></pre>
+<p>Note the semi-colon ending the statement.</p>
+<p>If this has been successful, you should see this:</p>
+<pre><code class="language-plaintext">Query OK, 1 row affected (0.00 sec)</code></pre>
+<figure class="image"><img src="https://projects-static.raspberrypi.org/projects/lamp-web-server-with-wordpress/8b2925d8260c8fd772c5d74ea075083abe219048/en/images/create-database.png" alt="create database"></figure>
+<ul>
+  <li>Now grant database privileges to the root user. <strong>Note:</strong> you will need to <strong>enter your own password after</strong> <code>IDENTIFIED BY</code>. <strong>REMEMBER THIS PASSWORD</strong>.</li>
+</ul>
+<pre><code class="language-plaintext">GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost' IDENTIFIED BY 'YOURPASSWORD';</code></pre>
+<ul>
+  <li>For the changes to take effect, you will need to flush the database privileges:</li>
+</ul>
+<pre><code class="language-plaintext">FLUSH PRIVILEGES;</code></pre>
+<p>Exit the MariaDB prompt with Ctrl + D.</p>
+<h2>Configuring Caddy</h2>
+<p>Caddy will serve our files over our custom domain of choice. Make sure that the custom domain has an A Record pointing to the IP address of your server before proceeding. We must also know the version of <code>php-fpm</code> we'll be using. Before anything else, check this by navigating to your php directory:</p>
+<pre><code class="language-plaintext">cd /run/php/</code></pre>
+<p>Take note of the files here. What you're looking for is a file that looks like <code>phpX.X-fpm.sock</code> Wherein the <code>X</code>'s designate the version numbers. At the time of writing, this is 7.4. Thus the php-fpm file in the directory looks like <code>php7.4-fpm.sock</code>. We need to take note of this for our Caddy configuration.</p>
+<ul>
+  <li>Configuring caddy is pretty straightforward since it uses a single file (a ‘Caddyfile’ )to store its configurations. We must first open up the Caddyfile:</li>
+</ul>
+<pre><code class="language-plaintext">sudo nano /etc/caddy/Caddyfile</code></pre>
+<ul>
+  <li>Assuming this is a fresh install and no other important configs are there, delete everything and add this to the Caddyfile:</li>
+</ul>
+<pre><code class="language-plaintext">yourdomain.com {
+  root * /var/www/html
+  php_fastcgi unix//run/php/php7.4-fpm.sock
+  encode gzip
+  file_server
+  respond /uploads/*.php 404
+}</code></pre>
+<p>Note that the line <code>php_fastcgi unix//run/php/php7.4-fpm.sock</code> contains the version of php-fpm that we've take note of earlier. Make sure to change <code>yourdomain.com</code> to your actual domain. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
+<ul>
+  <li>Now we just need to restart caddy for the configs to take effect.</li>
+</ul>
+<pre><code class="language-plaintext">sudo service caddy restart</code></pre>
+<ul>
+  <li>At this point, might as well reboot the server for good measure.</li>
+</ul>
+<pre><code class="language-plaintext">sudo reboot</code></pre>
+<h2>Initializing Wordpress</h2>
+<p>After the reboot wordpress should now be accessible via your chosen domain indicated in the Caddyfile. If you enter that domain into your browser, you should see a WordPress page asking to pick your language.</p>
+<figure class="image"><img src="https://projects-static.raspberrypi.org/projects/lamp-web-server-with-wordpress/8b2925d8260c8fd772c5d74ea075083abe219048/en/images/wordpress_language.png" alt="WordPress select language"></figure>
+<ul>
+  <li>Select your language and click <strong>Continue</strong>.</li>
+</ul>
+<p>You will be presented with the WordPress welcome screen.</p>
+<figure class="image"><img src="https://projects-static.raspberrypi.org/projects/lamp-web-server-with-wordpress/8b2925d8260c8fd772c5d74ea075083abe219048/en/images/wordpress-welcome.png" alt="WordPress welcome screen"></figure>
+<p>Click the <strong>Let’s go!</strong> button.</p>
+<p>Now fill out the basic site information as follows:</p>
+<pre><code class="language-plaintext">Database Name:      wordpress
+User Name:          root
+Password:           &lt;YOUR DATABASE PASSWORD&gt;
+Database Host:      localhost
+Table Prefix:       wp_</code></pre>
+<p>Click <strong>Submit</strong> to proceed.</p>
+<p>Click the <strong>Run the install</strong> button.</p>
+<figure class="image"><img src="https://projects-static.raspberrypi.org/projects/lamp-web-server-with-wordpress/8b2925d8260c8fd772c5d74ea075083abe219048/en/images/wp-info.png" alt="WordPress Welcome screen"></figure>
+<p>Fill out the information: give your site a title, create a username and password, and enter your email address. Hit the <code>Install WordPress</code> button, then log in using the account you just created.</p>
+<p>Now you’re logged in and have your site set up, you can see the website by visiting your <code>yourdomain.com/wp-admin</code>.</p>
+<h2>Final notes</h2>
+<p>After this, you should probably install some extensions to secure your wordpress installation. Another recommended thing to do would be to change your admin directory from <code>yourdomain.com/wp-admin/</code> to something more discrete. Always pick strong passwords, and don't forget them! You won't be able to retrieve them unless you have an SMTP mailing plugin installed on wordpress. Goodluck!</p>
