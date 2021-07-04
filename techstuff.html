@@ -2,7 +2,7 @@
 title: Tech Stuff
 description: Some resources I've come across on my journey to the unexpected hobby of tinkering with servers.
 published: true
-date: 2021-07-04T02:23:34.457Z
+date: 2021-07-04T05:53:15.892Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-05-28T16:14:21.131Z
@@ -13,162 +13,39 @@ dateCreated: 2021-05-28T16:14:21.131Z
   <table>
     <tbody>
       <tr>
-        <td style="background-color:hsl(0, 0%, 100%);"><span style="font-family:'Trebuchet MS', Helvetica, sans-serif;"><i>This is by no means, a universal solution and will cover only the services I use. You will be able to find other solutions in places like the FoundryVTT wiki, and the vast internet. If you have questions about the methods here you can send me an email or message on Discord and I'll be glad to help!</i></span></td>
+        <td style="background-color:hsl(0, 0%, 100%);"><i>I learn things by doing, but that doesn't mean I remember all of it </i>😂<i>. Here are some tutorials about the stuff I've deployed, which I put up here for me to reference back later but may come in handy for those who seek doing similar things.</i></td>
       </tr>
     </tbody>
   </table>
 </figure>
-<h2><strong>Servers</strong></h2>
-<p>A server is essentially a computer that serves information remotely to end-users like you (clients). In my setup, I use Virtual Machines (VMs) on remote servers to host FoundryVTT games and this wiki.&nbsp;</p>
-<h2>Where do I get one?</h2>
-<p>The simplest way to have your own server is to allocate a device for use as one. A good candidate for this is an old laptop installed with a server OS like Ubuntu 20.04, or a Raspberry Pi running Raspbian. There are also lots of hosting providers out there that can provide you a good starting point to host your own stuff. Here I'll focus on the ones I've used: <strong>Oracle Cloud</strong>, <strong>Digital Ocean</strong>, and <strong>Azure:</strong></p>
-<p>&nbsp;</p>
+<h2>Table of Contents</h2>
 <figure class="table">
   <table>
     <tbody>
       <tr>
-        <td style="background-color:#ffd0cc;">
-          <h3><a href="https://www.oracle.com/cloud/free/">Oracle Cloud</a></h3>
-          <p>Despite its unpopularity due to its lawsuit against Google and a bunch of other stuff, Oracle Cloud has one of the best “free tiers” on this list. When you sign up for Oracle Cloud Infrastructure, you'll get <strong>two Virtual Machines with 1GB RAM each</strong> (one of these is enough to run an instance of Foundry or any lightweight program). They've recently added the ability to create up to 4 ARM-based VMs on the free tier with a combined total of 24GB of RAM. <strong>Available storage</strong> for these instances have a combined total of <strong>200 GB</strong>, the <i>biggest</i> of any free tier cloud providers, and they allow an <strong>outbound bandwidth of 10TB per month</strong>. More than enough even if you do daily D&amp;D sessions. It's also <u>free for life</u> (or at least until they change their minds). <strong>You will need a credit card to </strong><a href="https://www.oracle.com/cloud/free/"><strong>signup</strong></a><strong>.</strong></p>
-          <p>&nbsp;</p>
-        </td>
+        <td><a href="/techstuff/hosting">Hosting</a></td>
+        <td>If you want an idea on which cloud hosting provider to try, these are the ones that I've tried.</td>
       </tr>
       <tr>
-        <td style="background-color:#cccfff;">
-          <h3><a href="https://www.digitalocean.com/">Digital Ocean</a></h3>
-          <p>They don't provide anything for&nbsp;free, but they have the best reputation of the cloud providers I've tried. It is also highly recommended by the Foundry Community. You'll get <strong>1GB of RAM</strong> on the instance, and about <strong>25GB of storage</strong>. <strong>Outbound bandwidth is at 1TB per month</strong>. Each VM instance (or “droplet”) you create would cost around <mark class="pen-red"><strong><u>$5 per month</u></strong></mark>. <strong>You will need a credit card to </strong><a href="https://www.digitalocean.com/"><strong>signup</strong></a><strong>.&nbsp;</strong></p>
-          <blockquote>
-            <p>Digital Ocean partnered with <a href="https://education.github.com/">Github Education</a>, giving students $100 in credit. With that amount you can host a VM instance for a year without any cost. However, you'll still need to have a credit card during signup even if you do so with Github. Don't forget to register for <a href="https://education.github.com/">Github Education</a> using your school email to avail of a LOT of benefits (including domains) if you're a student.</p>
-          </blockquote>
-          <p>&nbsp;</p>
-        </td>
+        <td><a href="/techstuff/installing-foundry">Installing Foundry on a server</a></td>
+        <td>A culmination of the guides that I've tried, and what worked for me.</td>
       </tr>
       <tr>
-        <td style="background-color:#beb5ff;">
-          <h3><a href="https://azure.microsoft.com/en-us/free/">Azure</a></h3>
-          <p>Microsoft runs this. You essentially get 1 Linux based VM and 1 Windows VM for their free tier (which lasts for only 1 year). It's <strong>1GB of RAM</strong>, has a maximum of <strong>64GB of storage</strong>, and a measly outbound bandwidth of <strong>15GB per month</strong>. You can avail of these for 1 year, as long as you <strong>signup with a credit card or debit card.</strong></p>
-          <blockquote>
-            <p>Azure is also partnered with <a href="https://education.github.com/">Github Education</a>, giving you the ability to avail of their <strong>free-tier services for 1 year</strong>, along with <strong>$100 in credit</strong>. <strong>No credit card needed if you signup with your school email through </strong><a href="https://education.github.com/"><strong>Github Education</strong></a>.</p>
-          </blockquote>
-          <p>&nbsp;</p>
-        </td>
+        <td><a href="/techstuff/wordpress-caddy">Creating a website</a></td>
+        <td>If you've ever wanted to install a generic CMS with a web server that automatically fetches SSL certificates for you, this is for you!</td>
+      </tr>
+      <tr>
+        <td><a href="/techstuff/tunneling">Setting up tunnels using Inlets and Caddy</a></td>
+        <td>If you've ever wanted to host foundry, or a website using a local computer or a Raspberry Pi but port forwarding doesn't work because of a CGNAT, this is for you!</td>
+      </tr>
+      <tr>
+        <td><a href="/techstuff/SSHTunneling">Setting up an SSH tunnel</a></td>
+        <td>Useful if you want to have a Public IP even if you are behind a CGNAT-restricted network.</td>
+      </tr>
+      <tr>
+        <td><a href="/techstuff/good-to-know">Good to know!</a></td>
+        <td>Some useful stuff which may come in handy...&nbsp;</td>
       </tr>
     </tbody>
   </table>
 </figure>
-<p>&nbsp;</p>
-<h3>So which one?</h3>
-<p>I'm on Oracle because it's free, giving me the freedom of not charging my players anything besides a few hours of their lives to play D&amp;D. However, I keep mirror backups of my active Foundry installations and data folders both on my personal computer, and on a separate Digital Ocean instance. I also use Azure, but not for Foundry. I use Azure just as a dedicated server for Don't Starve Together.</p>
-<h2>Operating System</h2>
-<p>The OS I use on my VMs is <strong>Ubuntu 20.04</strong>. As such, the tutorials here will be done with Ubuntu.&nbsp;</p>
-<p>Any Linux OS will be offered for free on any of the hosting providers mentioned above. I don't use Windows server OS because it can incur licensing fees which may charge your card if you're not careful.&nbsp;</p>
-<h2>Installing FoundryVTT on a VM</h2>
-<p>After you've chosen which hosting providers works best for you, you can go ahead and checkout these tutorials!</p>
-<blockquote>
-  <p>You will need a basic understanding of changing directories depending on the user account you're using if you opted to use Digital Ocean or Azure to proceed.</p>
-</blockquote>
-<figure class="table">
-  <table>
-    <tbody>
-      <tr>
-        <td><strong>For Oracle: </strong><a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle">Always Free Oracle Cloud Hosting Guide for Foundry</a></td>
-      </tr>
-      <tr>
-        <td><strong>For Digital Ocean:</strong> Setup the cheapest instance you can find (the $5 one) and use the Oracle tutorial starting at <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a>. Remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>root</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> since no additional network config is needed for Digital Ocean instances.</td>
-      </tr>
-      <tr>
-        <td>
-          <p><strong>For Azure:</strong> While the FoundryVTT wiki covers Azure on <a href="https://foundryvtt.wiki/en/setup/hosting/self-hosting-on-azure">one of their tutorials</a>, I found it simpler to use the same approach with Digital Ocean and just start at &nbsp;<a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D5"><strong>step D5</strong></a><strong> </strong>of the Oracle Tutorial. You should also remember to<strong> rename the user</strong> <code>ubuntu</code> user in commands to <code>azureuser</code> (or any use you've added) to avoid getting errors, and to <a href="https://foundryvtt.wiki/en/setup/hosting/always-free-oracle#D7"><strong>skip step D7</strong></a> of the tutorial since a different approach is needed to open up the necessary ports for Azure.&nbsp;</p>
-          <ul>
-            <li>At any point during the setup, you can go to the <strong>Networking</strong> tab of your Virtual Machine in Azure, and add an inbound port rule allowing access to <strong>port 30000</strong>.</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><strong>For any Linux: </strong><a href="https://foundryvtt.wiki/en/setup/linux-installation">General Linux Installation and Usage Guide&nbsp;</a></p>
-          <ul>
-            <li>This provides a generalized walkthrough of the method used in the the Oracle Tutorial. It contains a lot of other notes which may be irrelevant to your installation as accomodations for other linux distros have been added. However, this provides the most comprehensive guide in setting up a linux VM for use with Foundry.</li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</figure>
-<p>&nbsp;</p>
-<h3>Renaming the user directories during install</h3>
-<p>Whenever a command for foundry references the user directory (the directory after <code>/home/</code> in the example below, the user is <code>ubuntu</code>) you should make the appropriate changes to the syntax.</p>
-<pre><code class="language-plaintext">node /home/ubuntu/foundry/resources/app/main.js --dataPath=/home/ubuntu/foundryuserdata</code></pre>
-<p>The above example is the command used to run the FoundryVTT server using node in the Oracle tutorial. The example is useful for installations where the default user is name <code>ubuntu</code> like in Oracle Cloud. However, what if I use Digital ocean or Azure? Well, you'll need to know the user account you're using (the <strong>default for Digital Ocean is </strong><code><strong>root</strong></code> while the <strong>default for Azure is </strong><code><strong>azureuser</strong></code>) and make the necessary modifications.</p>
-<ul>
-  <li><strong>Let's say I use Azure:</strong></li>
-</ul>
-<pre><code class="language-plaintext">node /home/azureuser/foundry/resources/app/main.js --dataPath=/home/azureuser/foundryuserdata</code></pre>
-<p>That would properly run the foundry instance if you've followed along the Oracle tutorial on Azure.&nbsp;</p>
-<ul>
-  <li><strong>I tried this on Digital Ocean but it didn't work. What's up?</strong></li>
-</ul>
-<p>This is the syntax for VMs configured with root accounts.</p>
-<pre><code class="language-plaintext">node /root/foundry/resources/app/main.js --dataPath=/root/foundryuserdata</code></pre>
-<p>You'll notice that the <code>/home/</code> directory is not included. This is because the root account is the foundation of user access in linux. In normal use cases, it is not recommended to use root user accounts as primaries since they introduce a slew of access privileges and alongside it, vulnerabilities. For the purpose of simplicity and in <i>assumption that you're not going to use Foundry in the largescale, but only with friends</i>, this should be good.</p>
-<blockquote>
-  <p>Remember that this is not the only event that you'll encounter this. <strong>Always scan your syntax</strong> for any misconfigured directories. It is very easy to just copy and paste the necessary commands in Ubuntu, but it is still not fool-proof, especially if you're adapting proven methods onto other environment like we do here.&nbsp;</p>
-</blockquote>
-<h2>Setting Up Tunnel for CGNAT-restricted Internet Connections</h2>
-<p>In cases where a local server provides better performance than remote servers, but has no IP Address of its own (as in the case of internet providers with CGNAT), it may be more advantageous to simply tunnel the server over a cheap, remote proxy server instead.</p>
-<p>There are two methods which can be employed, and each of them has its own advantages.</p>
-<ol>
-  <li><a href="https://notes.leveloneadventure.me/en/techstuff/tunneling">Using <strong>Inlets</strong></a><strong>. </strong>Inlets is an open source, automated service which is useful if you want to websites or web apps over a custom domain.</li>
-  <li><a href="https://notes.leveloneadventure.me/en/techstuff/SSHTunneling">Using <strong>SSH</strong></a>. This is the simplest method, but cannot be appended to custom domains. However, this can be useful for exposing games, as you will be provisioned a port for use from a remote server.</li>
-</ol>
-<h2>Bonus: Configuring Caddy with multiple programs</h2>
-<p>The caddyfile for my own foundry install goes something like this:</p>
-<pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
-
-# A CONFIG SECTION FOR DND
-dnd.leveloneadventure.me {
-    # PROXY ALL REQUEST TO PORT 30000
-    reverse_proxy localhost:30000
-}
-
-# Refer to the Caddy docs for more information:
-# https://caddyserver.com/docs/caddyfile</code></pre>
-<p>You'll notice that my domain <code>dnd.leveloneadventure.me</code>is in the proper section and that the port is set to the Foundry default of <code>30000</code>. But what if I want to reverse proxy another program using Caddy <strong>on the same VM?</strong> Good news! The config is easy enough.</p>
-<p>Let's say we have a program that uses the port <code>3000</code>(as in the case of Wiki.js) we simply need to alter the domain we will use to access the program and add the appropriate port to use. We can do this on another line of config:</p>
-<pre><code class="language-plaintext"># This replaces the existing content in /etc/caddy/Caddyfile
-
-# A CONFIG SECTION FOR DND
-dnd.leveloneadventure.me {
-    # PROXY ALL REQUEST TO PORT 30000
-    reverse_proxy localhost:30000
-}
-# A CONFIG SECTION FOR NOTES
-notes.leveloneadventure.me {
-    # PROXY ALL REQUEST TO PORT 3000
-    reverse_proxy localhost:3000
-}
-
-# Refer to the Caddy docs for more information:
-# https://caddyserver.com/docs/caddyfile</code></pre>
-<p>Now we have the ports <code>30000</code> and <code>3000</code>being reverse-proxied to <code>dnd.leveloneadventure.me</code> and <code>notes.leveloneadventure.me</code> respectively!</p>
-<p>Remember to restart Caddy to apply the changes:</p>
-<pre><code class="language-plaintext">sudo service caddy restart</code></pre>
-<p>&nbsp;</p>
-<blockquote>
-  <p>You will need to add an “A RECORD" on you domain provider's DNS settings that points to your VM's public IP address for this to work. Make sure you set the subdomains to match the ones you've configured on your caddyfile.</p>
-</blockquote>
-<h2>Bonus: Adding Existing SSH keys</h2>
-<pre><code class="language-plaintext">cp /path/to/my/key/id_rsa ~/.ssh/id_rsa
-cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub
-# change permissions on file
-sudo chmod 600 ~/.ssh/id_rsa
-sudo chmod 600 ~/.ssh/id_rsa.pub
-# start the ssh-agent in the background
-eval $(ssh-agent -s)
-# make ssh agent to actually use copied key
-ssh-add ~/.ssh/id_rsa</code></pre>
-<h2>Bonus: Creating a website!</h2>
-<p>Here we'll be installing Wordpress and Caddy to create our own website. This can be useful for a whole slew of stuff. Follow the tutorial below to get started!</p>
-<p><a href="https://notes.leveloneadventure.me/en/techstuff/wordpress-caddy">Installing Wordpress with Caddy</a></p>
-<h2>Congratulations!</h2>
-<p>You've made it this far. This experience will definitely level up your comfort with using the terminal and the Ubuntu server OS. You can branch out and apply this knowledge to other projects like <strong>setting up dedicated servers</strong> for games, or hosting your own wiki like this one! The procedures will be <i><strong>vastly</strong></i> different, but I know you'll be able to do it! 😊</p>
