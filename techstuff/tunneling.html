@@ -2,7 +2,7 @@
 title: Circumventing CGNAT Using Tunnels (Inlets)
 description: If you've ever wanted to host foundry, or a website using a local computer or a Raspberry Pi but port forwarding doesn't work because of a CGNAT, this is for you!
 published: true
-date: 2021-07-02T13:21:11.639Z
+date: 2021-07-16T03:02:02.225Z
 tags: tech
 editor: ckeditor
 dateCreated: 2021-07-02T09:52:14.572Z
@@ -60,6 +60,9 @@ ExecStart=/usr/local/bin/inlets server --port=8080 --token=1111
 [Install]
 WantedBy=multi-user.target</code></pre>
 <p>Change <code>--port=8080</code> to your preferred port number and <code>--token=1111</code> to your preferred token number. The token will be needed by the client to connect securely. Press <code>CTRL+X</code> then <code>Y</code> then <code>ENTER</code> to save changes.</p>
+<blockquote>
+  <p>For some reason, apps like Jellyfin does not play well with Inlets' transport wrapping. Adding the flag <code>--disable-transport-wrapping</code> to the command fixes this.</p>
+</blockquote>
 <p>Now that the service has been added to systemctl, we need to reload systemctl to reflect the changes:</p>
 <pre><code class="language-plaintext">sudo systemctl daemon-reload</code></pre>
 <p>Now let's enable the service at boot and start it:</p>
